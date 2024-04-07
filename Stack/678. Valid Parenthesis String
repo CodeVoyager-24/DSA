@@ -1,0 +1,69 @@
+Problem: https://leetcode.com/problems/valid-parenthesis-string/
+
+🔍 Insight:
+
+How did I approach this problem?
+
+Initially, I tackled the basic valid parenthesis problem, which involved utilizing a stack to manage open and close parentheses. I delved into Leetcode problem 20 - Valid Parenthesis string for insights.
+
+Addressing the current challenge, I identified the presence of open '(', close ')', and asterisk '' parentheses. I recognized the asterisk '' as versatile, capable of assuming the role of either open or close parentheses as per the context. Hence, I opted for two distinct stacks - one for regular parentheses and another for asterisks.
+
+During traversal, I meticulously stored the indices of open '(', and asterisks '*' in their respective stacks - 'bracketsStacks' and 'asteriskStack', ensuring meticulous organization.
+
+Handling close ')' parentheses involved a strategic approach:
+A: Attempted nullification through open '(' parenthesis, popping from 'bracketsStacks'.
+B: If open '(' parenthesis was unavailable, attempted nullification through asterisk ''.
+C: If both open '(' parenthesis and asterisk '' were absent, it deemed the string non-valid, warranting a 'false' return.
+
+Even after addressing close ')' parenthesis scenarios, open '(' parenthesis required attention:
+A: Ensured remaining asterisks '' equated to remaining open '(' parenthesis.
+B: Verified all open parentheses '' occurred before their corresponding asterisks '*', as indicated by the indices comparison.
+
+🛠️ Approach:
+
+Initiated with the establishment of two essential stacks - 'bracketsStack' and 'asteriskStack'.
+
+Implemented a meticulous traversal through the string, systematically storing indices of brackets and asterisks in their respective stacks.
+
+Upon encountering close brackets, facilitated a streamlined process:
+
+Popped from 'bracketsStack'; if empty, resorted to 'asteriskStack'; if both were exhausted, returned 'false'.
+Post-traversal scrutiny ensured the nullification of open parenthesis from asterisks and verified their indices, guaranteeing their precedency.
+
+Finalized by confirming the emptiness of 'bracketsStack', signifying the validity of the string, hence returning 'true'; otherwise, 'false'.
+
+📊 Complexity:
+
+Time complexity: O(n)
+Space complexity: O(n)
+
+💻 Code:
+
+class Solution {
+    public boolean checkValidString(String s) {
+        Stack<Integer> bracketsStack = new Stack<>();
+        Stack<Integer> asteriskStack = new Stack<>();
+        char[] sArr = s.toCharArray();
+        
+        for(int i = 0; i < sArr.length; i++) {
+            char ch = sArr[i];
+            if(ch == '(')
+                bracketsStack.push(i);
+            else if(ch == '*') 
+                asteriskStack.push(i);
+            else if(!bracketsStack.isEmpty())
+                bracketsStack.pop();
+            else if(!asteriskStack.isEmpty())
+                asteriskStack.pop();
+            else
+                return false;
+        }
+
+        while(!bracketsStack.isEmpty() && !asteriskStack.isEmpty() && bracketsStack.peek() < asteriskStack.peek()) {
+            bracketsStack.pop();
+            asteriskStack.pop();
+        }
+
+        return bracketsStack.isEmpty();
+    }
+}
