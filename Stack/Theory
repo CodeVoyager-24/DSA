@@ -1,1 +1,17 @@
+Today, let's explore the Java Collection framework's Stack class, which models and implements the Stack data structure. 
+This class operates on the principle of last-in-first-out (LIFO), where the last element added is the first to be removed.
 
+1. empty()
+Description: It returns true if nothing is on the top of the stack. Else, it returns false.
+
+2. peek()
+Description: Returns the element on the top of the stack, but does not remove it.
+
+3. pop()
+Description: Removes and returns the top element of the stack. An ‘EmptyStackException’ is thrown if we call pop() when the invoking stack is empty.
+
+4.push(Object element)
+Description: Pushes an element on the top of the stack.
+
+5.search(Object element)
+Description: It determines whether an object exists in the stack. If the element is found, it returns the position of the element from the top of the stack. Else, it returns -1.
